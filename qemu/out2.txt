@@ -1,0 +1,24 @@
+root
+Password: 
+]3008;start=46a1ce7b405a4f2f8a90fb02a86b8c8d;user=root;hostname=expandable-poc;machineid=c3d941747b7d4aa29865c0cda8d6695b;bootid=659780b44dd6464a8fd9ca85932bf0e7;pid=282;pidfdid=282;comm=login;targetuser=root;sessionid=1;type=session\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# systemctl status systemd-repart.service --no-pager -l
+[?2004l]3008;start=f3e2daa7-2e32-47cc-bf00-63ef77841642;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=command;cwd=/root\[0;1;31m×[0m systemd-repart.service - Repartition Root Disk
+     Loaded: loaded (]8;;file://expandable-poc/usr/lib/systemd/system/systemd-repart.service\/usr/lib/systemd/system/systemd-repart.service]8;;\; static[0;1;38:5:185m[0m)
+     Active: [0;1;31mfailed[0m (Result: exit-code) since Sun 2026-08-23 18:42:54 UTC; 1min 17s ago
+ Invocation: c6ed9d67b9d945e7aa595de3bcd50056
+       Docs: ]8;;man:systemd-repart.service(8)\man:systemd-repart.service(8)]8;;\
+    Process: 211 ExecStart=systemd-repart --dry-run=no [0;1;31m(code=exited, status=1/FAILURE)[0m
+   Main PID: 211 (code=exited, status=1/FAILURE)
+   Mem peak: 2.4M
+        CPU: 6ms
+
+Aug 23 18:42:54 expandable-poc systemd[1]: Starting Repartition Root Disk...
+Aug 23 18:42:54 expandable-poc systemd-repart[211]: [0;1;31m[0;1;39m[0;1;31mCan't fit requested partitions into available free space (1004K), refusing.[0m
+Aug 23 18:42:54 expandable-poc systemd-repart[211]: Automatically determined minimal disk image size as 4G, current block device/image size is 4G.
+Aug 23 18:42:54 expandable-poc systemd[1]: [0;1;39m[0;1;31m[0;1;39msystemd-repart.service: Main process exited, code=exited, status=1/FAILURE[0m
+Aug 23 18:42:54 expandable-poc systemd[1]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185msystemd-repart.service: Failed with result 'exit-code'.[0m
+Aug 23 18:42:54 expandable-poc systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start Repartition Root Disk.[0m
+]3008;end=f3e2daa7-2e32-47cc-bf00-63ef77841642;exit=failure;status=3\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# df -h /
+[?2004l]3008;start=6baf73fa-8424-464a-b063-67bb82e7a4db;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=command;cwd=/root\Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda2       3.6G  1.3G  2.2G  37% /
+]3008;end=6baf73fa-8424-464a-b063-67bb82e7a4db;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# 
+[?2004l]3008;end=9e07d394-b068-4302-9d64-e3b9c92388eb;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# 

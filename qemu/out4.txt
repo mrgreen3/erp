@@ -1,0 +1,24 @@
+
+[?2004l]3008;end=9fb716d4-c34e-4c00-88d5-77c062f2a489;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# cat /etc/repart.d/50-root.conf
+[?2004l]3008;start=c367c6e9-480d-4ca1-9fa1-8df55e912cea;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=command;cwd=/root\# Grow the root partition to consume all remaining free space on the disk.
+# Read by systemd-repart in the initrd (see mkinitcpio/repart hook).
+# Idempotent by design: systemd-repart only grows, never shrinks, and is a
+# no-op once the partition already matches this definition.
+#
+# PaddingWeight leaves a sliver of the elastic size distribution unclaimed.
+# Without it, Weight=1000 (default) tries to consume every last byte on the
+# disk, including GPT-alignment/backup-header overhead it can never actually
+# get — which errors out ("Can't fit requested partitions into available
+# free space") instead of settling for the current size on an exact-fit
+# disk (e.g. booting the freshly-built image before it's ever been resized
+# onto a bigger drive).
+[Partition]
+Type=root
+GrowFileSystem=yes
+PaddingWeight=1
+]3008;end=c367c6e9-480d-4ca1-9fa1-8df55e912cea;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\blockdev --getsz /dev/vda2
+
+[?2004h[root@expandable-poc ~]# blockdev --getsz /dev/vda2
+[?2004l]3008;start=49fd9b19-288a-4f39-9167-34f71092d493;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=command;cwd=/root\7772127
+]3008;end=49fd9b19-288a-4f39-9167-34f71092d493;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# 
+[?2004l]3008;end=43b6b827-4640-4606-8158-5237e3cf8065;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# 
