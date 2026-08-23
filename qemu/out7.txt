@@ -1,27 +1,0 @@
-
-[?2004l]3008;end=08181562-09cd-442a-bf54-518b6e38f0c8;exit=failure;status=1\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# rm /etc/repart.d/50-root.conf; ls /etc/repart.d/
-[?2004l]3008;start=0a94016d-c260-47dc-951b-9a66bc79fff3;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=command;cwd=/root\]3008;end=0a94016d-c260-47dc-951b-9a66bc79fff3;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# systemd-repart --dry-run=yes 2>&1
-[?2004l]3008;start=97dff3bf-05bf-4bc6-b5c0-6921ba0080d9;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=command;cwd=/root\[4mTYPE       [0m[4m [0m[4mLABEL[0m[4m [0m[4mUUID                               
- [0m[4m [0m[4mPART[0m[4m [0m[4mFILE[0m[4m [0m[4m  RAW SIZE[0m[4m [0m[4m    SIZE[
-0m[4m [0m[4mPADDING[0m
-esp         ESP   1dc00dcc-c817-41d1-bfa1-d8b5a64e39ea    0 [0;38:5:245m    [0m 
- 314572800     300M      0B
-root-x86-64 root  44b64b88-2eae-410f-a054-27d48792773d    1 [0;38:5:245m    [0m 
-3979329024 [0;4m    3.7G[0m      0B
-[0;38:5:245m           [0m [0;38:5:245m     [0m [0;38:5:245m                    
-                [0m [0;38:5:245m    [0m [0;38:5:245m    [0m [0;38:5:245m        
-  [0m Σ = 3.9G  Σ = 0B
-
- [0;32m▒[0;32m▒[0;32m▒[0;32m▒[0;32m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0
-;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33
-m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[
-0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;3
-3m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒
-[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;
-33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0;33m▒[0m░[0m
- │    └─ root                                                                  
- └─ ESP                                                                        
-
-No changes.
-]3008;end=97dff3bf-05bf-4bc6-b5c0-6921ba0080d9;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# 
-[?2004l]3008;end=7412d8a1-1cfc-40b4-9995-cb5727c068c8;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# 

@@ -1,12 +1,0 @@
-
-[?2004l]3008;end=bb30a8e5-bd0a-4f3a-a25e-e7f67cd1cd75;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# SYSTEMD_LOG_LEVEL=debug systemd-repart --dry-run=yes 2>&1 | tail -60
-[?2004l]3008;start=6f3ccebf-3f06-49b2-93ea-75a7e7318070;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=command;cwd=/root\Failed to find TPM2 pcrlock policy file 'pcrlock.json': No such file or directory
-Loaded shared library 'libfdisk.so.1' via dlopen().
-Device '/' has no dm-crypt/dm-verity device, no need to look for underlying block device.
-Device /dev/vda opened and locked.
-Probed sector size of /dev/vda is 512 bytes.
-Sector size of device is 512 bytes. Using default filesystem sector size of 512 and grain size of 4096.
-Can't fit requested partitions into available free space (1004K), refusing.
-Automatically determined minimal disk image size as 4G, current block device/image size is 4G.
-]3008;end=6f3ccebf-3f06-49b2-93ea-75a7e7318070;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# 
-[?2004l]3008;end=e822a663-a508-4611-8589-842852ff4059;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# 

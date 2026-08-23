@@ -4,5 +4,5 @@ qemu/*.img
 qemu/*.log
 qemu/*.sock
 qemu/*.pid
-qemu/out_*.txt
+qemu/out*.txt
 qemu/OVMF_VARS.fd

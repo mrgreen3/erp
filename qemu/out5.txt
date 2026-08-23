@@ -1,12 +1,0 @@
-
-[?2004l]3008;end=add56a44-462c-4334-bd86-03cc8653faa5;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# printf '[Partition]\nType=root\nSizeMinBytes=3979329024\nSizeMaxBytes=3979329024\n' > /etc/repart.d/50-root.conf && cat /etc/repart.d/50-root.conf
-[?2004l]3008;start=f7067328-ef6b-4ca2-8f97-42c0568f9f0d;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=command;cwd=/root\[Partition]
-Type=root
-SizeMinBytes=3979329024
-SizeMaxBytes=3979329024
-]3008;end=f7067328-ef6b-4ca2-8f97-42c0568f9f0d;exit=success\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# systemd-repart --dry-run=yes 2>&1
-[?2004l]3008;start=d2865413-c77f-411f-9fae-92add366a4c9;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=command;cwd=/root\[0;1;39m/etc/repart.d/50-root.conf:3: Rounded SizeMinBytes= size 3979329024 → 3979329536, a multiple of 4096.[0m
-[0;1;39m/etc/repart.d/50-root.conf:4: Rounded SizeMaxBytes= size 3979329024 → 3979325440, a multiple of 4096.[0m
-[0;1;31m/etc/repart.d/50-root.conf:1: SizeMinBytes= larger than SizeMaxBytes=, refusing.[0m
-]3008;end=d2865413-c77f-411f-9fae-92add366a4c9;exit=failure;status=1\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# 
-[?2004l]3008;end=f06ce396-e90e-42cd-9db1-20cc2e745d45;exit=failure;status=1\]3008;start=db18d0c5-b9ca-45fe-a163-281966061fac;machineid=c3d941747b7d4aa29865c0cda8d6695b;user=root;hostname=expandable-poc;bootid=659780b4-4dd6-464a-8fd9-ca85932bf0e7;pid=00000000000000000299;type=shell;cwd=/root\[?2004h[root@expandable-poc ~]# 

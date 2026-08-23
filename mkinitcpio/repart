@@ -16,6 +16,25 @@ build() {
     add_binary /usr/lib/libfdisk.so.1
     add_systemd_unit systemd-repart.service
 
+    # add_systemd_unit also auto-enables the unit via its packaged
+    # [Install] WantedBy=sysinit.target (meant for the real system), on
+    # top of the initrd-root-fs.target.wants symlink it copies from the
+    # host (the correct initrd timing, after the root device is found).
+    # initrd's own sysinit.target is reached before /sysroot exists, so
+    # that copy fires first and fails ("Failed to determine if '/sysroot'
+    # points to the root directory") — and since systemd doesn't retry a
+    # failed unit within the same boot, the correctly-timed copy never
+    # gets a turn. Drop the premature one.
+    rm -f "$BUILDROOT/usr/lib/systemd/system/sysinit.target.wants/systemd-repart.service"
+
+    # systemd-repart runs before the root device is even found
+    # (Before=initrd-root-fs.target) and probes /sysroot to detect
+    # initrd-vs-real-root context. Arch's minimal initrd has no
+    # dracut-style module pre-creating that mountpoint dir this early,
+    # so without it repart fails: "Failed to determine if '/sysroot'
+    # points to the root directory: No such file or directory".
+    add_dir /sysroot
+
     add_dir /etc/repart.d
     local f
     for f in /etc/repart.d/*.conf; do

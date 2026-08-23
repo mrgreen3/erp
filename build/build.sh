@@ -79,6 +79,14 @@ arch-chroot "$MNT" /bin/bash -c "
     echo root:$ROOT_PASSWORD | chpasswd
     mkinitcpio -P
     bootctl install --path=/boot
+    # systemd-growfs-root.service is normally pulled in dynamically by
+    # systemd-gpt-auto-generator via the root partition's GPT 'grow' flag
+    # (set by GrowFileSystem=yes in repart.d/50-root.conf). That generator
+    # skips root-partition auto-discovery entirely when root= is set
+    # explicitly on the kernel cmdline (our deliberate choice, decoupled
+    # from repart.d's GPT-type matching for reliability on real hardware)
+    # — so enable it statically instead of relying on the generator.
+    systemctl enable systemd-growfs-root.service
 "
 
 mkdir -p "$MNT/boot/loader/entries"
