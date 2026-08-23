@@ -40,7 +40,7 @@ Using Arch's native systemd tooling rather than cloud-guest-utils:
 - `repart.d/50-root.conf` — the repart definition.
 
 ## Next steps after reboot
-1. `cd ~/Projects/expandable-rootfs-poc && sudo ./build/build.sh`
+1. `cd ~/Projects/erp && sudo ./build/build.sh`
 2. Watch for pacstrap/mkinitcpio/bootctl errors.
 3. Boot-test in QEMU+OVMF first (edk2-ovmf is installed,
    /usr/share/edk2/x64/OVMF_CODE.4m.fd) — resize the qcow2/raw image up
