@@ -7,7 +7,7 @@
 # Must appear after 'systemd' in HOOKS=() in mkinitcpio.conf.
 
 build() {
-    add_binary /usr/lib/systemd/systemd-repart
+    add_binary /usr/bin/systemd-repart
     add_systemd_unit systemd-repart.service
 
     add_dir /etc/repart.d
