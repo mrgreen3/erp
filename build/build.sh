@@ -85,8 +85,14 @@ arch-chroot "$MNT" /bin/bash -c "
     # skips root-partition auto-discovery entirely when root= is set
     # explicitly on the kernel cmdline (our deliberate choice, decoupled
     # from repart.d's GPT-type matching for reliability on real hardware)
-    # — so enable it statically instead of relying on the generator.
-    systemctl enable systemd-growfs-root.service
+    # — so wire it in statically instead of relying on the generator.
+    # The unit has no [Install] section (it's meant to be pulled in only
+    # by the generator, or symlinked statically like this), so
+    # 'systemctl enable' is a silent no-op here — go straight to the
+    # symlink it would have created.
+    mkdir -p /etc/systemd/system/sysinit.target.wants
+    ln -sf /usr/lib/systemd/system/systemd-growfs-root.service \
+        /etc/systemd/system/sysinit.target.wants/systemd-growfs-root.service
 "
 
 mkdir -p "$MNT/boot/loader/entries"
