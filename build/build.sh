@@ -52,7 +52,7 @@ mkdir -p "$MNT/boot"
 mount "$ESP_PART" "$MNT/boot"
 
 echo "==> pacstrap (base + boot essentials only)"
-pacstrap -c "$MNT" base linux linux-firmware mkinitcpio systemd systemd-boot sudo vi
+pacstrap -c "$MNT" base linux linux-firmware mkinitcpio systemd sudo vi
 
 echo "==> configuring fstab"
 genfstab -U "$MNT" >> "$MNT/etc/fstab"
