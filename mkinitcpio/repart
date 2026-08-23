@@ -8,6 +8,12 @@
 
 build() {
     add_binary /usr/bin/systemd-repart
+    # systemd-repart dlopen()s libfdisk at runtime rather than linking it
+    # normally, so mkinitcpio's ldd-based dependency resolution in
+    # add_binary never picks it up on its own — bundle it explicitly, or
+    # systemd-repart.service fails in the initrd with "Shared library
+    # 'libfdisk.so.1' is not available".
+    add_binary /usr/lib/libfdisk.so.1
     add_systemd_unit systemd-repart.service
 
     add_dir /etc/repart.d

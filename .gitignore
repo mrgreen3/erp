@@ -1,2 +1,8 @@
 build/expandable-poc.img
 build/mnt/
+qemu/*.img
+qemu/*.log
+qemu/*.sock
+qemu/*.pid
+qemu/out_*.txt
+qemu/OVMF_VARS.fd
