@@ -80,6 +80,29 @@ Using Arch's native systemd tooling rather than cloud-guest-utils:
   sequence against a running QEMU instance over a unix socket, for
   non-interactive boot testing. Reusable for future boot tests.
 
+## Initrd repart dropped (2026-08-24)
+Retesting after trimming `sudo`/`vi` from the package list (on an 8G virtual
+disk, same grow-test as before) surfaced something the original testing
+missed: the initrd-stage `systemd-repart` (the one bugs 2-4 above exist to
+support) fails on *every* boot —
+`Failed to determine backing device of /sysroot/usr: No such file or
+directory` — and does nothing. All the actual work (GPT rewrite, kernel
+repartition notify, ext4 resize) was being done by the *real-root*
+`systemd-repart.service` instance that fires after switch-root, while root
+is already mounted — and it does so successfully and idempotently. Growing
+a mounted root partition's table entry turns out not to be a problem here,
+which removes the whole reason for running repart pre-mount in the initrd.
+Decision: drop the custom mkinitcpio `repart` hook and its initrd wiring;
+rely solely on the real-root `systemd-repart.service` (still statically
+enabled via `sysinit.target.wants`, same as growfs). Simpler build, no
+`libfdisk.so.1`/`/sysroot` special-casing, no failed unit cluttering every
+boot log. Retested on the same 8G-disk grow scenario with the initrd hook
+removed: single clean `systemd-repart` run (no failed unit at all now),
+GPT and ext4 both grow correctly on first boot, and a second boot confirms
+idempotency ("No changes" / growfs no-op) — same result as before, minus
+the noise. `mkinitcpio/repart` is now unused; kept in the repo for
+reference but no longer installed by `build.sh`.
+
 ## Next steps
 1. Real hardware test: dd the built image to an actual USB stick bigger
    than 4G, boot a real machine, confirm the same grow-on-first-boot

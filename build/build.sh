@@ -52,16 +52,15 @@ mkdir -p "$MNT/boot"
 mount "$ESP_PART" "$MNT/boot"
 
 echo "==> pacstrap (base + boot essentials only)"
-pacstrap -c "$MNT" base linux linux-firmware mkinitcpio systemd sudo vi
+pacstrap -c "$MNT" base linux linux-firmware mkinitcpio systemd
 
 echo "==> configuring fstab"
 genfstab -U "$MNT" >> "$MNT/etc/fstab"
 
-echo "==> installing custom mkinitcpio repart hook"
-install -Dm755 "$PROJ/mkinitcpio/repart" "$MNT/etc/initcpio/install/repart"
+echo "==> installing repart.d config (real-root systemd-repart.service only)"
 install -Dm644 "$PROJ/repart.d/50-root.conf" "$MNT/etc/repart.d/50-root.conf"
 
-sed -i 's/^HOOKS=.*/HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block filesystems repart fsck)/' \
+sed -i 's/^HOOKS=.*/HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block filesystems fsck)/' \
     "$MNT/etc/mkinitcpio.conf"
 
 echo "==> basic system config"
