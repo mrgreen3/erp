@@ -1,0 +1,136 @@
+/* ---------- Palette pulled from sunset-lake.png ---------- */
+/* sky-top:#843978  horizon:#c0568b  water:#7b4178  treeline:#372666  glow:#f2729a */
+@define-color bg      #251848;
+@define-color surface #1e1540;
+@define-color fg      #ead6e8;
+@define-color fg-dim  #7b4178;
+@define-color accent  #c0568b;
+@define-color red     #f2729a;
+@define-color green   #b49ac0;
+@define-color yellow  #d4a8b8;
+
+/* ---------- Base ---------- */
+* {
+    border-radius: 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+}
+
+window#waybar {
+    background-color: @bg;
+    color: @fg;
+    border: none;
+    padding: 2px 0;
+}
+
+/* ---------- Launcher ---------- */
+#custom-launcher {
+    color: @accent;
+    font-family: "Symbols Nerd Font Mono";
+    font-size: 14px;
+    padding: 0 12px;
+    margin: 2px 2px;
+}
+
+#custom-launcher:hover {
+    color: #ffadd0;
+}
+
+/* ---------- Workspaces / tags ---------- */
+#workspaces {
+    margin: 0;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    margin: 0;
+    color: @fg-dim;
+    background: transparent;
+    border: none;
+}
+
+#workspaces button.active {
+    color: @fg;
+    background: transparent;
+    font-weight: bold;
+}
+
+#workspaces button:not(.active) {
+    color: @fg-dim;
+}
+
+#workspaces button:hover {
+    color: @accent;
+    background: transparent;
+}
+
+#workspaces button.active:hover {
+    color: #ffffff;
+}
+
+#workspaces button.urgent {
+    color: #e060c0;
+    border-radius: 6px;
+}
+
+/* ---------- Clock ---------- */
+#clock {
+    color: @fg;
+    background-color: transparent;
+    padding: 0 14px;
+    font-weight: bold;
+}
+
+/* ---------- Common section styling ---------- */
+#tray, #battery, #network {
+    margin: 0;
+    padding: 0 8px;
+    color: @fg;
+}
+
+/* ---------- Network ---------- */
+#network {
+    font-family: "Symbols Nerd Font Mono";
+    font-size: 14px;
+    color: @accent;
+}
+
+#network.disconnected {
+    color: @red;
+}
+
+/* ---------- Battery ---------- */
+#battery {
+    font-size: 14px;
+}
+
+#battery.warning {
+    color: @yellow;
+}
+
+#battery.critical {
+    color: @red;
+}
+
+#battery.charging {
+    color: @green;
+}
+
+/* ---------- Tray ---------- */
+#tray {
+    padding: 0 6px;
+}
+
+/* ---------- Tooltips ---------- */
+tooltip {
+    background-color: @surface;
+    border: 1px solid @accent;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+tooltip label {
+    color: @fg;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+}

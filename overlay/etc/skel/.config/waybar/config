@@ -1,0 +1,71 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 4,
+  "modules-left": [
+    "custom/launcher",
+    "ext/workspaces"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "tray",
+    "battery",
+    "network"
+  ],
+  "custom/launcher": {
+    "format": "",
+    "on-click": "~/Scripts/archbang-menu",
+    "tooltip": true,
+    "tooltip-format": "Main Menu"
+  },
+  "ext/workspaces": {
+    "format": "{id}",
+    "on-click": "activate",
+    "sort-by-id": true,
+    "all-outputs": true
+  },
+  "tray": {
+    "spacing": 10
+  },
+  "clock": {
+    "format": "{:%H:%M}",
+    "format-alt": "{:%A %d %B  %H:%M}",
+    "tooltip-format": "<big>{:%A %d}</big>\n<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "month",
+      "weeks-pos": "right",
+      "on-scroll": 1
+    },
+    "interval": 60
+  },
+  "network": {
+    "format-wifi": "󰤨",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰤭",
+    "on-click": "bash -c 'networkmanager_dmenu'",
+    "tooltip-format-wifi": "{essid} {signalStrength}%",
+    "tooltip-format-ethernet": "{ipaddr}",
+    "tooltip-format-disconnected": "Disconnected"
+  },
+  "battery": {
+    "format": "{icon}",
+    "format-charging": "󰂄",
+    "format-full": "󰁹",
+    "format-unknown": "",
+    "format-icons": [
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿"
+    ],
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "tooltip-format": "{capacity}% · {time} remaining · {power}W"
+  }
+}

@@ -1,9 +1,8 @@
- MiniBang Guide
+ ArchBang Guide
 
-Welcome to MiniBang, a minimal Arch-based Xorg live ISO built around i3 for
-low-RAM (~1GB) hardware.
+Welcome to ArchBang, a lightweight Arch-based Wayland live ISO built around MangoWM.
 
-Note: Do not post MiniBang issues on the Arch Linux forums.
+Note: Do not post ArchBang issues on the Arch Linux forums.
 
 ---
 
@@ -12,16 +11,28 @@ PACMAN (LIVE SESSION)
 Network required for pacman or browser use in the live session.
 
 - Wired connections work automatically.
-- Wireless: Super+n (nmtui), select network, enter password.
+- Wireless: left-click the network icon in waybar, select network, enter password.
 
 ---
 
-WORKSPACES
+TAGS AND LAYOUTS
 
-i3 uses numbered workspaces (1-9), tiling by default.
+MangoWM uses tags (1–9) instead of workspaces.
 
-Switch workspaces with Super+1 through Super+9.
-Toggle a window between floating and tiling with Super+Shift+Space.
+Tag 1 is floating — windows behave like a traditional floating desktop.
+Tags 2–9 are tiling — windows are arranged automatically.
+
+Switch tags with Super+1 through Super+9.
+Toggle a window between floating and tiling with Super+S.
+
+---
+
+INSTALLATION
+
+1. Right-click on the desktop (or Super+Space for rofi)
+2. Select Install from the menu
+
+The installer (abinstall) is menu-driven.
 
 ---
 
@@ -53,10 +64,17 @@ Install:  sudo pacman -S <package-name>
 
 MICROCODE
 
-MiniBang includes both intel-ucode and amd-ucode. You only need one.
+ArchBang includes both intel-ucode and amd-ucode. You only need one.
 
 If you remove the unused one after installation, update your bootloader config
 (regenerate GRUB or edit loader.conf) before rebooting.
+
+---
+
+INTEL GRAPHICS
+
+ArchBang uses Wayland with MangoWM, which relies on kernel modesetting via Mesa.
+No additional Intel drivers needed — built-in kernel drivers handle acceleration.
 
 ---
 
@@ -74,4 +92,4 @@ Arch Wiki: https://wiki.archlinux.org
 
 ---
 
-Copyright 2026 MiniBang
+Copyright 2025 ArchBang

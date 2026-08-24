@@ -1,12 +1,15 @@
-# MiniBang login shell configuration
-# Starts Xorg + i3 on TTY1 via startx (no display manager)
+# ArchBang login shell configuration
+# Starts mango (Wayland compositor)
 
 . $HOME/.bashrc
 
-# Boot cheat code: append `nox` to the kernel command line (edit at the
-# syslinux/systemd-boot/GRUB prompt) to skip Xorg and stay at this console.
-if [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && ! grep -qw nox /proc/cmdline; then
-    exec startx
+WindowManager=mango
+
+# Start mango on TTY1
+if [[ -z $WAYLAND_DISPLAY && -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+    export XDG_CURRENT_DESKTOP=$WindowManager
+    export XDG_SESSION_TYPE=wayland
+    exec $WindowManager
 fi
 
 

@@ -1,19 +1,20 @@
 #!/bin/bash
-# Build an expandable Arch rootfs image: minibang's i3/Xorg desktop stack
-# on top of the grow-on-first-boot PoC, small 4G image, UEFI/systemd-boot.
+# Build an expandable Arch rootfs image: full ArchBang (MangoWM/Wayland)
+# desktop stack on top of the grow-on-first-boot PoC, UEFI/systemd-boot.
 # Must be run as root (or via sudo).
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJ="$(dirname "$HERE")"
+ARCHBANG_AUR_REPO="/home/mrgreen/Projects/archbang/aur_repo"
 
 IMG="$HERE/expandable-poc.img"
 MNT="$HERE/mnt"
-IMG_SIZE="4G"
+IMG_SIZE="8G"
 ESP_SIZE="300M"
 ROOT_PASSWORD="root"    # PoC only — not for anything beyond isolated test boots
-TARGET_USER="mini"      # PoC only — not Kev's real name, this isn't a live/personal env
-USER_PASSWORD="mini"    # PoC only — not for anything beyond isolated test boots
+TARGET_USER="bang"      # PoC only — not Kev's real name, this isn't a live/personal env
+USER_PASSWORD="bang"    # PoC only — not for anything beyond isolated test boots
 
 if [[ $EUID -ne 0 ]]; then
     echo "must run as root" >&2
@@ -53,30 +54,39 @@ mount "$ROOT_PART" "$MNT"
 mkdir -p "$MNT/boot"
 mount "$ESP_PART" "$MNT/boot"
 
-echo "==> pacstrap (minibang i3/Xorg desktop stack, minus live-ISO/grub-only bits)"
+echo "==> pacstrap (ArchBang MangoWM/Wayland desktop stack, minus live-ISO/grub-only bits)"
 pacstrap -c "$MNT" \
-    base linux mkinitcpio systemd \
-    linux-firmware-intel linux-firmware-atheros linux-firmware-realtek \
-    linux-firmware-broadcom linux-firmware-mediatek \
-    xorg-server xorg-xinit xorg-drivers xorg-setxkbmap i3-wm i3blocks i3lock \
-    rxvt-unicode dmenu feh scrot \
+    base linux mkinitcpio systemd linux-firmware \
+    pipewire pipewire-pulse \
     zip unzip 7zip xz \
-    lf links \
-    udisks2 \
-    vim \
-    ttf-dejavu \
-    htop laptop-detect \
-    parted gptfdisk ntfs-3g \
+    foot \
+    swaybg waybar xorg-xwayland wlr-randr grim slurp wl-clipboard \
+    brightnessctl swaylock mako reflector rofi \
+    thunar thunar-volman gvfs udisks2 \
+    vim l3afpad \
+    adw-gtk-theme adwaita-icon-theme ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono ttf-dejavu \
+    htop fastfetch laptop-detect \
+    gparted parted gptfdisk ddrescue testdisk ntfs-3g \
     networkmanager usb_modeswitch broadcom-wl \
-    sudo fontconfig kbd xclip zram-generator \
-    openssh arch-install-scripts curl pacman-contrib \
-    rsync pv dosfstools btrfs-progs \
+    polkit libsecret xdg-user-dirs \
+    dialog sudo fontconfig kbd \
+    openssh arch-install-scripts curl pacman-contrib fzf eza \
+    firefox imv \
+    squashfs-tools rsync pv dosfstools btrfs-progs \
     intel-ucode amd-ucode \
     bash bzip2 coreutils cryptsetup device-mapper diffutils e2fsprogs file \
     filesystem findutils gawk gcc-libs gettext glibc grep gzip inetutils \
-    iproute2 iputils less licenses logrotate lvm2 man-db man-pages pacman \
-    pciutils perl procps-ng psmisc sed shadow sysfsutils systemd-sysvcompat \
-    tar usbutils util-linux which archlinux-keyring
+    iproute2 iputils less licenses nano ex-vi-compat logrotate lvm2 man-db \
+    man-pages pacman pciutils perl procps-ng psmisc sed shadow sysfsutils \
+    systemd-sysvcompat tar usbutils util-linux which archlinux-keyring
+
+echo "==> installing AUR-built packages (mango, deps) from erp's local aur_repo"
+mkdir -p "$PROJ/aur_repo"
+cp -u "$ARCHBANG_AUR_REPO"/*.pkg.tar.zst "$PROJ/aur_repo/"
+mkdir -p "$MNT/root/aur_pkgs"
+cp "$PROJ"/aur_repo/*.pkg.tar.zst "$MNT/root/aur_pkgs/"
+arch-chroot "$MNT" /bin/bash -c 'pacman -U --noconfirm /root/aur_pkgs/*.pkg.tar.zst'
+rm -rf "$MNT/root/aur_pkgs"
 
 echo "==> configuring fstab"
 genfstab -U "$MNT" >> "$MNT/etc/fstab"
@@ -87,11 +97,11 @@ install -Dm644 "$PROJ/repart.d/50-root.conf" "$MNT/etc/repart.d/50-root.conf"
 sed -i 's/^HOOKS=.*/HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block filesystems fsck)/' \
     "$MNT/etc/mkinitcpio.conf"
 
-echo "==> installing overlay (etc config + skel, from minibang)"
+echo "==> installing overlay (etc config + skel, from archbang)"
 cp -a "$PROJ/overlay/etc/." "$MNT/etc/"
 
 echo "==> basic system config"
-echo "expandable-poc" > "$MNT/etc/hostname"
+echo "archbang" > "$MNT/etc/hostname"
 ln -sf /usr/share/zoneinfo/UTC "$MNT/etc/localtime"
 echo "en_US.UTF-8 UTF-8" >> "$MNT/etc/locale.gen"
 echo "LANG=en_US.UTF-8" > "$MNT/etc/locale.conf"

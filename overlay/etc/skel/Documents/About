@@ -1,43 +1,64 @@
-MiniBang: About
+ArchBang: About
 ================
 
-What is MiniBang?
+What is ArchBang?
 ------------------
 
-MiniBang is a minimal Arch Linux-based setup for older laptops with very low RAM
-(~1GB), where a modern Arch install with Wayland and a full desktop environment
-isn't practical. Built entirely with pacman and official Arch repositories — no
-separate distro, no alternate package manager, no AUR.
+ArchBang is a lightweight, Arch Linux-based live ISO forked from ArchBang. It swaps
+labwc for MangoWM — a custom Wayland compositor built around a warm brown and yellow
+palette. Same lean philosophy, different compositor and visual identity.
 
 
 Origin
 ------
 
-MiniBang is a sibling project to ArchBang, sharing its archiso build tooling but
-targeting the opposite end of the hardware spectrum. Where ArchBang runs MangoWM
-on Wayland for modern machines, MiniBang strips back to Xorg + i3 for hardware
-that can't carry a compositor.
+ArchBang's story begins with CrunchBang — a Debian-based live ISO built around the
+Openbox window manager, created by Philip Newborough. CrunchBang offered something rare:
+a minimal, fast, beautifully consistent desktop that just worked, without the weight of a
+full desktop environment.
+
+ArchBang emerged from that community, built on Arch Linux's rolling release foundation.
+MrGreen has maintained ArchBang for years — through window manager changes, the move to
+Wayland, and the shift to labwc.
+
+ArchBang is MrGreen's personal spin: the same base, the same installer, but built around
+MangoWM and a warm dark theme rather than the stock ArchBang configuration.
 
 
 Design Philosophy
 -----------------
 
-  * Lightweight - low overhead stack for ~1GB RAM hardware
-  * Xorg, not Wayland - no compositor tax
-  * No GTK/Qt - dmenu, i3bar/i3blocks, urxvt throughout
-  * Arch underneath - full pacman access, official repos only
+  * Lightweight - Minimal base, runs well on modest hardware
+  * Wayland-first - MangoWM compositor, no Xorg
+  * Coherent - Warm brown/yellow palette throughout (waybar, mako, rofi)
+  * Arch underneath - Full pacman access, rolling release
 
 
-Stack
------
+Why MangoWM?
+------------
 
-  - Xorg (xorg-server, xorg-xinit, xorg-drivers)
-  - i3 - tiling window manager, with i3bar + i3blocks built in
-  - rxvt-unicode (urxvt) - daemon mode, one process shared across windows
-  - feh - wallpaper
-  - dmenu - app launcher
-  - lf / links - terminal fallbacks for files/web (no GUI browser or file
-    manager shipped by default)
+MangoWM is a custom Wayland compositor written by MrGreen. It provides a tiling and
+floating hybrid layout with a minimal footprint. ArchBang bundles the AUR packages
+(mangowm-git, scenefx) directly in the ISO so no network access is needed to boot a
+working desktop.
+
+
+Features
+--------
+
+Desktop
+  - MangoWM Wayland compositor
+  - waybar panel with workspace indicators
+  - foot terminal
+  - rofi launcher (Super+Space)
+  - mako notification daemon
+  - swaybg wallpaper
+
+Installation
+  - Menu-driven installer (abinstall)
+  - UEFI and BIOS boot support
+  - Optional LVM and full-disk encryption (LUKS)
+  - Automatic CPU microcode detection
 
 
 Getting Help
@@ -45,8 +66,8 @@ Getting Help
 
 For Arch-related questions: https://wiki.archlinux.org
 
-MiniBang is not affiliated with Arch Linux.
+ArchBang is not affiliated with Arch Linux or ArchBang.
 
 ---
 
-Copyright 2026 MiniBang
+Copyright 2025 ArchBang

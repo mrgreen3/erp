@@ -1,59 +1,77 @@
-MiniBang KEYBINDINGS
+ArchBang KEYBINDINGS
 ═════════════════════
 
-NOTE: Super = Windows Key (mod)
+NOTE: Super = Windows Key
 
 
 APPLICATIONS
 ───────────────────────
 
-Super + Return           Terminal (urxvt)
-Super + Space             Launcher (dmenu_run)
-Super + w                 Web Browser (links, in terminal)
-Super + n                 Network Menu (nmtui)
-Super + p                 Screenshot (full)
-Super + Shift + s         Screenshot (region)
-Super + l                 Lock Screen (i3lock)
+Super + Return          Terminal (foot)
+Super + Space           Launcher (rofi)
+Super + w               Web Browser (firefox)
+Super + p               Screenshot (full)
+Super + Shift + s       Screenshot (region)
+Super + k               Show Keybindings
 
 
 WINDOW CONTROLS
 ───────────────────────
 
-Super + q                 Close Window
-Super + f                 Fullscreen
-Super + Shift + Space     Toggle Float
-Super + Ctrl + Space      Toggle Focus (tiling/floating)
-Super + a                 Focus Parent
-Super + Left Click Drag   Move Floating Window
-Super + Right Click Drag  Resize Floating Window
+Super + q               Close Window
+Super + s               Toggle Float
+Super + f               Fullscreen
+Super + Shift + f       Fake Fullscreen
+Super + a               Maximise
+Super + i               Minimise
+Super + Shift + I       Restore Minimised
+Super + z               Scratchpad
+Super + o               Toggle Overlay
 
 
 FOCUS & MOVEMENT
 ───────────────────────
 
-Super + ←/→/↑/↓            Focus Direction
-Super + Shift + ←/→/↑/↓    Move Window
+Super + Tab             Next Window
+Super + Ctrl + ←/→/↑/↓   Focus Direction
+Super + Shift + ←/→/↑/↓  Swap Window Direction
+Ctrl + Shift + ←/→/↑/↓   Move Window (50px)
+Ctrl + Super + ←/→/↑/↓   Resize Window (50px)
 
 
 WORKSPACES
 ───────────────────────
 
-Super + [1-9]              Switch to Workspace
-Super + Shift + [1-9]      Send Window to Workspace
+Super + [1-9]           Switch to Workspace
+Super + Shift + [1-9]   Send Window to Workspace
+Super + Left/Right      Previous/Next Workspace
+Ctrl + Left/Right       Move with Window to Prev/Next
 
 
 LAYOUT
 ───────────────────────
 
-Super + h / v               Split Horizontal / Vertical
-Super + e                   Toggle Split Layout
-Super + s                   Stacking Layout
-Super + z                   Tabbed Layout
+Super + n               Switch Layout Mode
+Super + e               Set Proportion Full
+Super + x               Cycle Proportion Preset
+Super + g               Toggle Gaps
+Super + Shift + X       Increase Gaps
+Super + Shift + Z       Decrease Gaps
+
+
+MULTI-MONITOR
+───────────────────────
+
+Super + Alt + Left/Right        Focus Monitor
+Super + Ctrl + Alt + Left/Right Send to Monitor
 
 
 SYSTEM
 ───────────────────────
 
-Super + Shift + c           Reload i3 Config
-Super + Shift + r           Restart i3 (in place)
-Super + Shift + e           Power Menu (logout/reboot/poweroff)
+Super + l               Lock Screen
+Super + r               Reload Config
+Super + m               Quit MangoWM
+Vol Up (XF86)           Increase Volume
+Vol Down (XF86)         Decrease Volume
+Mute (XF86)             Toggle Mute

@@ -1,5 +1,6 @@
 build/expandable-poc.img
 build/mnt/
+aur_repo/
 qemu/*.img
 qemu/*.log
 qemu/*.sock
