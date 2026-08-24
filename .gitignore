@@ -7,3 +7,4 @@ qemu/*.sock
 qemu/*.pid
 qemu/out*.txt
 qemu/OVMF_VARS.fd
+qemu/OVMF_VARS_*.fd

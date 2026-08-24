@@ -95,7 +95,11 @@ genfstab -U "$MNT" >> "$MNT/etc/fstab"
 echo "==> installing repart.d config (real-root systemd-repart.service only)"
 install -Dm644 "$PROJ/repart.d/50-root.conf" "$MNT/etc/repart.d/50-root.conf"
 
-sed -i 's/^HOOKS=.*/HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block filesystems fsck)/' \
+echo "==> configuring mkinitcpio HOOKS (no autodetect: this is a portable"
+echo "    install image, not tied to the build host's hardware, so bundle"
+echo "    every storage/filesystem driver Arch ships rather than trimming"
+echo "    to whatever's loaded on this machine right now)"
+sed -i 's/^HOOKS=.*/HOOKS=(base systemd microcode modconf kms keyboard sd-vconsole block filesystems fsck)/' \
     "$MNT/etc/mkinitcpio.conf"
 
 echo "==> installing overlay (etc config + skel, from archbang)"

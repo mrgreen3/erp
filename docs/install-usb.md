@@ -28,7 +28,7 @@ Below, `$USB` is that device, e.g. `/dev/sdX` — **not** a partition
 If you have the raw build output (`build/expandable-poc.img`):
 
 ```
-sudo dd if=build/expandable-poc.img of=$USB bs=4M status=progress conv=fsync
+sudo dd if=build/expandable-poc.img of=$USB bs=4M status=progress conv=fsync,sparse
 ```
 
 If you have a compressed release (see
@@ -36,12 +36,17 @@ If you have a compressed release (see
 `xz -6`, ~1.2G):
 
 ```
-xz -dc erp.img.xz | sudo dd of=$USB bs=4M status=progress conv=fsync
+xz -dc erp.img.xz | sudo dd of=$USB bs=4M status=progress conv=fsync,sparse
 ```
 
 `conv=fsync` makes `dd` actually flush to the device before exiting —
 don't skip it, and don't unplug the drive until the command returns and the
-prompt comes back.
+prompt comes back. `conv=sparse` skips writing the image's unused
+zero-filled regions instead of writing them out — the image is only ~3G of
+real data inside an 8G nominal file, so this noticeably cuts write time on
+a typical USB stick (which writes at maybe 15-40MB/s — the full 8G can
+otherwise take several minutes even though only a third of it is real
+data).
 
 ## 3. Verify the write (optional but recommended)
 
