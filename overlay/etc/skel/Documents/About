@@ -1,0 +1,52 @@
+MiniBang: About
+================
+
+What is MiniBang?
+------------------
+
+MiniBang is a minimal Arch Linux-based setup for older laptops with very low RAM
+(~1GB), where a modern Arch install with Wayland and a full desktop environment
+isn't practical. Built entirely with pacman and official Arch repositories — no
+separate distro, no alternate package manager, no AUR.
+
+
+Origin
+------
+
+MiniBang is a sibling project to ArchBang, sharing its archiso build tooling but
+targeting the opposite end of the hardware spectrum. Where ArchBang runs MangoWM
+on Wayland for modern machines, MiniBang strips back to Xorg + i3 for hardware
+that can't carry a compositor.
+
+
+Design Philosophy
+-----------------
+
+  * Lightweight - low overhead stack for ~1GB RAM hardware
+  * Xorg, not Wayland - no compositor tax
+  * No GTK/Qt - dmenu, i3bar/i3blocks, urxvt throughout
+  * Arch underneath - full pacman access, official repos only
+
+
+Stack
+-----
+
+  - Xorg (xorg-server, xorg-xinit, xorg-drivers)
+  - i3 - tiling window manager, with i3bar + i3blocks built in
+  - rxvt-unicode (urxvt) - daemon mode, one process shared across windows
+  - feh - wallpaper
+  - dmenu - app launcher
+  - lf / links - terminal fallbacks for files/web (no GUI browser or file
+    manager shipped by default)
+
+
+Getting Help
+------------
+
+For Arch-related questions: https://wiki.archlinux.org
+
+MiniBang is not affiliated with Arch Linux.
+
+---
+
+Copyright 2026 MiniBang

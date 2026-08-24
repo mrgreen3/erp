@@ -1,0 +1,15 @@
+#!/bin/bash
+# Colors pulled from ~/.Xresources (single source of truth — see that file)
+res() { xrdb -query | awk -v k="*$1" '$1 == k { print $2 }'; }
+bg=$(res "i3.background:")
+fg=$(res "i3.foreground:")
+accent=$(res "i3.accent:")
+
+choice=$(printf "Logout\nReboot\nPoweroff" | dmenu -p "Power" -l 3 \
+    -fn "DejaVu Sans Mono:size=10" -nb "$bg" -nf "$fg" -sb "$accent" -sf "$fg")
+
+case "$choice" in
+    Logout)   i3-msg exit ;;
+    Reboot)   systemctl reboot ;;
+    Poweroff) systemctl poweroff ;;
+esac

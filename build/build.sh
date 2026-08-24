@@ -1,6 +1,6 @@
 #!/bin/bash
-# Build a minimal expandable Arch rootfs image.
-# PoC only: base + boot essentials, small 4G image, UEFI/systemd-boot.
+# Build an expandable Arch rootfs image: minibang's i3/Xorg desktop stack
+# on top of the grow-on-first-boot PoC, small 4G image, UEFI/systemd-boot.
 # Must be run as root (or via sudo).
 set -euo pipefail
 
@@ -11,7 +11,9 @@ IMG="$HERE/expandable-poc.img"
 MNT="$HERE/mnt"
 IMG_SIZE="4G"
 ESP_SIZE="300M"
-ROOT_PASSWORD="root"   # PoC only — not for anything beyond isolated test boots
+ROOT_PASSWORD="root"    # PoC only — not for anything beyond isolated test boots
+TARGET_USER="mini"      # PoC only — not Kev's real name, this isn't a live/personal env
+USER_PASSWORD="mini"    # PoC only — not for anything beyond isolated test boots
 
 if [[ $EUID -ne 0 ]]; then
     echo "must run as root" >&2
@@ -51,8 +53,30 @@ mount "$ROOT_PART" "$MNT"
 mkdir -p "$MNT/boot"
 mount "$ESP_PART" "$MNT/boot"
 
-echo "==> pacstrap (base + boot essentials only)"
-pacstrap -c "$MNT" base linux linux-firmware mkinitcpio systemd
+echo "==> pacstrap (minibang i3/Xorg desktop stack, minus live-ISO/grub-only bits)"
+pacstrap -c "$MNT" \
+    base linux mkinitcpio systemd \
+    linux-firmware-intel linux-firmware-atheros linux-firmware-realtek \
+    linux-firmware-broadcom linux-firmware-mediatek \
+    xorg-server xorg-xinit xorg-drivers xorg-setxkbmap i3-wm i3blocks i3lock \
+    rxvt-unicode dmenu feh scrot \
+    zip unzip 7zip xz \
+    lf links \
+    udisks2 \
+    vim \
+    ttf-dejavu \
+    htop laptop-detect \
+    parted gptfdisk ntfs-3g \
+    networkmanager usb_modeswitch broadcom-wl \
+    sudo fontconfig kbd xclip zram-generator \
+    openssh arch-install-scripts curl pacman-contrib \
+    rsync pv dosfstools btrfs-progs \
+    intel-ucode amd-ucode \
+    bash bzip2 coreutils cryptsetup device-mapper diffutils e2fsprogs file \
+    filesystem findutils gawk gcc-libs gettext glibc grep gzip inetutils \
+    iproute2 iputils less licenses logrotate lvm2 man-db man-pages pacman \
+    pciutils perl procps-ng psmisc sed shadow sysfsutils systemd-sysvcompat \
+    tar usbutils util-linux which archlinux-keyring
 
 echo "==> configuring fstab"
 genfstab -U "$MNT" >> "$MNT/etc/fstab"
@@ -63,6 +87,9 @@ install -Dm644 "$PROJ/repart.d/50-root.conf" "$MNT/etc/repart.d/50-root.conf"
 sed -i 's/^HOOKS=.*/HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block filesystems fsck)/' \
     "$MNT/etc/mkinitcpio.conf"
 
+echo "==> installing overlay (etc config + skel, from minibang)"
+cp -a "$PROJ/overlay/etc/." "$MNT/etc/"
+
 echo "==> basic system config"
 echo "expandable-poc" > "$MNT/etc/hostname"
 ln -sf /usr/share/zoneinfo/UTC "$MNT/etc/localtime"
@@ -72,9 +99,13 @@ echo "LANG=en_US.UTF-8" > "$MNT/etc/locale.conf"
 ROOT_PARTUUID=$(blkid -s PARTUUID -o value "$ROOT_PART")
 echo "==> root PARTUUID: $ROOT_PARTUUID"
 
+echo "==> customizing root (user creation, sudo, NetworkManager)"
+install -Dm755 "$HERE/customize_root.sh" "$MNT/root/customize_root.sh"
+arch-chroot "$MNT" /bin/bash -c "TARGET_USER='$TARGET_USER' USER_PASSWORD='$USER_PASSWORD' /root/customize_root.sh"
+rm -f "$MNT/root/customize_root.sh"
+
 arch-chroot "$MNT" /bin/bash -c "
     set -e
-    locale-gen
     echo root:$ROOT_PASSWORD | chpasswd
     mkinitcpio -P
     bootctl install --path=/boot

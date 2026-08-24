@@ -1,0 +1,59 @@
+MiniBang KEYBINDINGS
+═════════════════════
+
+NOTE: Super = Windows Key (mod)
+
+
+APPLICATIONS
+───────────────────────
+
+Super + Return           Terminal (urxvt)
+Super + Space             Launcher (dmenu_run)
+Super + w                 Web Browser (links, in terminal)
+Super + n                 Network Menu (nmtui)
+Super + p                 Screenshot (full)
+Super + Shift + s         Screenshot (region)
+Super + l                 Lock Screen (i3lock)
+
+
+WINDOW CONTROLS
+───────────────────────
+
+Super + q                 Close Window
+Super + f                 Fullscreen
+Super + Shift + Space     Toggle Float
+Super + Ctrl + Space      Toggle Focus (tiling/floating)
+Super + a                 Focus Parent
+Super + Left Click Drag   Move Floating Window
+Super + Right Click Drag  Resize Floating Window
+
+
+FOCUS & MOVEMENT
+───────────────────────
+
+Super + ←/→/↑/↓            Focus Direction
+Super + Shift + ←/→/↑/↓    Move Window
+
+
+WORKSPACES
+───────────────────────
+
+Super + [1-9]              Switch to Workspace
+Super + Shift + [1-9]      Send Window to Workspace
+
+
+LAYOUT
+───────────────────────
+
+Super + h / v               Split Horizontal / Vertical
+Super + e                   Toggle Split Layout
+Super + s                   Stacking Layout
+Super + z                   Tabbed Layout
+
+
+SYSTEM
+───────────────────────
+
+Super + Shift + c           Reload i3 Config
+Super + Shift + r           Restart i3 (in place)
+Super + Shift + e           Power Menu (logout/reboot/poweroff)

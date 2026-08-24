@@ -1,0 +1,77 @@
+ MiniBang Guide
+
+Welcome to MiniBang, a minimal Arch-based Xorg live ISO built around i3 for
+low-RAM (~1GB) hardware.
+
+Note: Do not post MiniBang issues on the Arch Linux forums.
+
+---
+
+PACMAN (LIVE SESSION)
+
+Network required for pacman or browser use in the live session.
+
+- Wired connections work automatically.
+- Wireless: Super+n (nmtui), select network, enter password.
+
+---
+
+WORKSPACES
+
+i3 uses numbered workspaces (1-9), tiling by default.
+
+Switch workspaces with Super+1 through Super+9.
+Toggle a window between floating and tiling with Super+Shift+Space.
+
+---
+
+POST-INSTALLATION
+
+SUDO
+
+Installed system requires password for sudo. Live session used passwordless sudo
+for convenience — installed system does not.
+
+---
+
+INITIALIZE PACMAN
+
+pacman will not work until keys are initialized:
+
+fix-keys
+
+This creates keys, refreshes the package cache, and updates archlinux-keyring.
+
+---
+
+BASIC PACKAGE USAGE
+
+Search:   sudo pacman -Ss <package-name>
+Install:  sudo pacman -S <package-name>
+
+---
+
+MICROCODE
+
+MiniBang includes both intel-ucode and amd-ucode. You only need one.
+
+If you remove the unused one after installation, update your bootloader config
+(regenerate GRUB or edit loader.conf) before rebooting.
+
+---
+
+LIVE SESSION DISK SPACE
+
+If the live session runs out of space:
+
+sudo mount -o remount,size=8G /run/archiso/cowspace
+
+---
+
+NEED HELP?
+
+Arch Wiki: https://wiki.archlinux.org
+
+---
+
+Copyright 2026 MiniBang

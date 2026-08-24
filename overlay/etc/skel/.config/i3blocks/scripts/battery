@@ -1,0 +1,39 @@
+#!/bin/sh
+# Sums energy_now/energy_full across all BAT* devices (handles multi-battery
+# laptops) rather than reading a single battery's %, which would be wrong
+# whenever the reported battery isn't the only one installed.
+
+now=0
+full=0
+status="Unknown"
+
+for bat in /sys/class/power_supply/BAT*; do
+    [ -d "$bat" ] || continue
+    now=$((now + $(cat "$bat/energy_now" 2>/dev/null || cat "$bat/charge_now" 2>/dev/null || echo 0)))
+    full=$((full + $(cat "$bat/energy_full" 2>/dev/null || cat "$bat/charge_full" 2>/dev/null || echo 0)))
+    bat_status=$(cat "$bat/status" 2>/dev/null)
+    case "$bat_status" in
+        Discharging) status="Discharging" ;;
+        Charging) [ "$status" != "Discharging" ] && status="Charging" ;;
+    esac
+done
+
+if [ "$full" -eq 0 ]; then
+    # No battery (desktop) - print nothing so i3blocks hides the block
+    # instead of showing "no battery" text.
+    exit 0
+fi
+
+percent=$((now * 100 / full))
+
+case "$status" in
+    Discharging) label="BAT" ;;
+    Charging) label="CHG" ;;
+    *) label="FULL" ;;
+esac
+
+echo "<span color=\"#8a7dcf\">${label}</span>: ${percent}%"
+echo ""
+if [ "$status" = "Discharging" ] && [ "$percent" -le 15 ]; then
+    echo "#e0623f"
+fi

@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Minimal fastfetch-style system info tool, pure bash + coreutils.
+
+set -uo pipefail
+
+if [ -t 1 ]; then
+    # 256-color index 104, closest xterm-palette match to the i3blocks
+    # lavender (#8a7dcf) - truecolor escapes aren't reliable on stock urxvt.
+    label='\033[1;38;5;104m'
+    reset='\033[0m'
+else
+    label=''
+    reset=''
+fi
+
+host=$(hostname)
+
+if [ -r /etc/os-release ]; then
+    . /etc/os-release
+    os=${PRETTY_NAME:-$NAME}
+else
+    os=$(uname -s)
+fi
+
+kernel=$(uname -r)
+
+uptime_secs=$(awk '{print int($1)}' /proc/uptime)
+up_d=$((uptime_secs/86400))
+up_h=$((uptime_secs%86400/3600))
+up_m=$((uptime_secs%3600/60))
+uptime_str=""
+[ "$up_d" -gt 0 ] && uptime_str+="${up_d}d "
+[ "$up_h" -gt 0 ] && uptime_str+="${up_h}h "
+uptime_str+="${up_m}m"
+
+packages=""
+if command -v pacman >/dev/null 2>&1; then
+    packages="$(pacman -Qq 2>/dev/null | wc -l) (pacman)"
+elif command -v dpkg >/dev/null 2>&1; then
+    packages="$(dpkg -l 2>/dev/null | grep -c '^ii') (dpkg)"
+elif command -v rpm >/dev/null 2>&1; then
+    packages="$(rpm -qa 2>/dev/null | wc -l) (rpm)"
+fi
+
+shell_name=$(basename "${SHELL:-unknown}")
+
+cpu=$(awk -F': ' '/model name/{print $2; exit}' /proc/cpuinfo)
+cpu=$(echo "$cpu" | sed -E 's/\(R\)|\(TM\)//g; s/ +/ /g; s/^ //;s/ $//')
+
+mem_total_kb=$(awk '/MemTotal/{print $2}' /proc/meminfo)
+mem_avail_kb=$(awk '/MemAvailable/{print $2}' /proc/meminfo)
+mem_used_kb=$((mem_total_kb - mem_avail_kb))
+mem_total_mb=$((mem_total_kb/1024))
+mem_used_mb=$((mem_used_kb/1024))
+
+disk_line=$(df -h / 2>/dev/null | awk 'NR==2{print $3" / "$2" ("$5")"}')
+
+printf "${label}OS:${reset}       %s\n" "$os"
+printf "${label}Kernel:${reset}   %s\n" "$kernel"
+printf "${label}Hostname:${reset} %s\n" "$host"
+printf "${label}Uptime:${reset}   %s\n" "$uptime_str"
+[ -n "$packages" ] && printf "${label}Packages:${reset} %s\n" "$packages"
+printf "${label}Shell:${reset}    %s\n" "$shell_name"
+printf "${label}CPU:${reset}      %s\n" "$cpu"
+printf "${label}Memory:${reset}   %sMiB / %sMiB\n" "$mem_used_mb" "$mem_total_mb"
+[ -n "$disk_line" ] && printf "${label}Disk:${reset}     %s\n" "$disk_line"

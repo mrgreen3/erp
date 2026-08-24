@@ -1,0 +1,29 @@
+#!/bin/bash
+# A simple script for setting up pacman keyring post install
+# created by my AI friend
+# modified by MrGreen
+
+echo "Checking network connectivity..."
+if curl -s --connect-timeout 2 https://www.archlinux.org >/dev/null 2>&1; then
+    echo "Network is up."
+else
+    echo "No network connection detected, exiting."
+    exit 1
+fi
+
+echo "Initializing pacman keyring..."
+sudo pacman-key --init
+
+echo "Populating archlinux keyring..."
+sudo pacman-key --populate archlinux
+
+# Now that pacman can trust packages, update the keyring package
+echo "Updating archlinux-keyring package..."
+sudo pacman -Sy --noconfirm archlinux-keyring
+
+# Optional: refresh keys if you suspect stale ones
+# echo "Refreshing pacman keys..."
+# pacman-key --refresh-keys
+
+echo "Pacman keyring setup complete."
+
