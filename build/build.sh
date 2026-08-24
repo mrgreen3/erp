@@ -62,6 +62,7 @@ pacstrap -c "$MNT" \
     foot \
     swaybg waybar xorg-xwayland wlr-randr grim slurp wl-clipboard \
     brightnessctl swaylock mako reflector rofi \
+    greetd greetd-gtkgreet cage \
     thunar thunar-volman gvfs udisks2 \
     vim l3afpad \
     adw-gtk-theme adwaita-icon-theme ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono ttf-dejavu \

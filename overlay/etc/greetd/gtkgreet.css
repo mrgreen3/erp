@@ -1,0 +1,52 @@
+/* gtkgreet theme — matches the ArchBang desktop palette (waybar/rofi/mako,
+   pulled from Backgrounds/sunset-lake.png) so the login screen doesn't look
+   like a bare default GTK dialog. Solid background rather than the actual
+   wallpaper image, since gtkgreet's session dropdown is a separate GtkWindow
+   that would inherit an image background too. */
+
+window {
+    background-color: #251848;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+}
+
+box#body {
+    background-color: rgba(30, 21, 64, 0.9);
+    border: 2px solid #c0568b;
+    border-radius: 6px;
+    padding: 32px;
+}
+
+label {
+    color: #ead6e8;
+}
+
+entry {
+    background-color: #1e1540;
+    color: #ead6e8;
+    caret-color: #ead6e8;
+    border: 1px solid #7b4178;
+    border-radius: 4px;
+    padding: 6px 10px;
+}
+
+entry:focus {
+    border-color: #c0568b;
+}
+
+button {
+    background-color: #c0568b;
+    color: #251848;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #ffadd0;
+}
+
+combobox {
+    color: #ead6e8;
+}

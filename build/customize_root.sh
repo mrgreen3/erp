@@ -38,3 +38,16 @@ chmod -c 0440 /etc/sudoers
 
 systemctl enable NetworkManager
 systemctl set-default graphical.target
+
+# greetd (cage + gtkgreet, lightweight graphical greeter) takes over tty1.
+# Its unit Conflicts=/After= getty@tty1.service so no manual masking needed.
+# Session options come from /etc/greetd/environments (gtkgreet doesn't scan
+# .desktop files itself). The 'greeter' system user is created automatically
+# by greetd's own sysusers.d entry.
+systemctl enable greetd.service
+
+# GTK_THEME via /etc/environment (read by pam_env in every session,
+# including the greeter's) so gtkgreet picks up the same adw-gtk3-dark
+# theme the desktop itself uses (overlay/etc/skel/.config/gtk-3.0/settings.ini)
+# instead of falling back to bare default GTK styling.
+echo "GTK_THEME=adw-gtk3-dark" >> /etc/environment

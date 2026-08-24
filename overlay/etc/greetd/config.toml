@@ -1,0 +1,11 @@
+[terminal]
+vt = 1
+
+[default_session]
+command = "cage -s -- gtkgreet -s /etc/greetd/gtkgreet.css"
+user = "greeter"
+# greetd's built-in default service name (greetd-greeter) has no matching
+# /etc/pam.d file, so real-user auth through gtkgreet silently fails PAM
+# and loops back to the login screen. Reuse the "greetd" PAM service
+# (a full system-local-login stack, shipped by the greetd package) instead.
+service = "greetd"
